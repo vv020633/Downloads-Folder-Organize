@@ -43,7 +43,7 @@ def regexSearch(downloads_list, filetypes):
 
     for type in filetypes:
        for file in downloads_list:
-           regex_match = re.compile(r"." + re.escape(type) + r"*$", re.I)
+           regex_match = re.compile(r".*" + re.escape(type) + r"$", re.I)
            #logging.debug('File is: %s' % (file))
            if regex_match.search(file):
                matched_filetypes.append(file)
@@ -64,8 +64,6 @@ def setDirectory(path):
 def moveFile(matched_filetypes):
 
     isExist = False
-    # Check this line if error occurs
-    #while isExist == False:
 
     if matched_filetypes == photo_match:
         isExist = os.path.exists(picture_downloads_path)
@@ -199,8 +197,8 @@ while loop:
 
     # Creating list to match executable filetypes
     exec_filetypes = ['0xe', '73k', '89k', '8ck', 'a6p', 'apk', 'app', 'air', 'acr', 'applescript', 'ba_', 'bat', 'bin', 'cmd', 'coffee', 'command',
-                      'csh', 'deb', 'e_e', 'ear', 'esh$exe$', 'exe1', 'fxp', 'ham', 'jar', 'ksh', 'mac', 'mam', 'mem',  'mlx', 'ps1', 'pyc', 'pyo', 'rgs', 'run', 'scr',
-                      'seed', 'sct', 'udf', 'vbe', 'vxp', 'ws', 'wsf', 'x86', 'xlm', 'xbap']
+                      'csh', 'deb', 'e_e', 'ear', 'esh$exe$', 'exe1', 'fxp', 'ham', 'jar', 'ksh', 'mac', 'mam', 'mem', 'ps1', 'pyc', 'pyo', 'rgs', 'run', 'scr',
+                      'seed', 'sct', 'udf', 'vbe', 'vxp', 'ws', 'wsf', 'x86', 'xlm', 'mlx', 'xbap']
 
     # Creating list to match compressed filetypes
 
@@ -223,9 +221,6 @@ while loop:
     image_match = regexSearch(files, disk_image_filetypes)
     photo_match = regexSearch(files, image_filetypes)
     app_image_match = regexSearch(files, app_image_filetypes)
-    #print(files)
-    #print('photo_match: ' + str(photo_match))
-    #print('exec_match: ' + str(exec_match))
 
     # Search for values in the downloads folder that don't match anything
     # regex_missing = regexMissing(files, video_match, document_match, exec_match, compressed_match, image_match, photo_match, app_image_match)
