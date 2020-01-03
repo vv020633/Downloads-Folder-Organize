@@ -7,6 +7,7 @@ import os
 import re
 import time
 import logging
+import shutil
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logging.debug('Start of progam')
@@ -42,13 +43,13 @@ def regexSearch(downloads_list, filetypes):
     matched_filetypes = []
 
     for type in filetypes:
-       for file in downloads_list:
-           regex_match = re.compile(r".*" + re.escape(type) + r"$", re.I)
-           #logging.debug('File is: %s' % (file))
-           if regex_match.search(file):
-               matched_filetypes.append(file)
-               print(matched_filetypes)
-    logging.debug('matched_types equal to: %s ' % str((matched_filetypes)))
+        for file in downloads_list:
+            regex_match = re.compile(r".*" + re.escape(type) + r"$", re.I)
+            # logging.debug('File is: %s' % (file))
+            if regex_match.search(file):
+                matched_filetypes.append(file)
+                print(matched_filetypes)
+    # logging.debug('matched_types equal to: %s ' % str((matched_filetypes)))
     return matched_filetypes
 
 
@@ -73,8 +74,8 @@ def moveFile(matched_filetypes):
 
         elif isExist:
             for file in matched_filetypes:
-                origin_path = path + "/" + file
-                photo_destination_path = picture_downloads_path + "/" + file
+                origin_path = os.path.join(path, file)
+                photo_destination_path = os.path.join(picture_downloads_path, file)
                 os.replace(origin_path, photo_destination_path)
 
     elif matched_filetypes == video_match:
@@ -85,8 +86,8 @@ def moveFile(matched_filetypes):
 
         elif isExist:
             for file in matched_filetypes:
-                origin_path = path + "/" + file
-                video_destination_path = video_downloads_path + "/" + file
+                origin_path = os.path.join(path, file)
+                video_destination_path = os.path.join(video_downloads_path, file)
                 os.replace(origin_path, video_destination_path)
 
     elif matched_filetypes == document_match:
@@ -97,8 +98,8 @@ def moveFile(matched_filetypes):
 
         elif isExist:
             for file in matched_filetypes:
-                origin_path = path + "/" + file
-                documents_destination_path = documents_downloads_path + "/" + file
+                origin_path = os.path.join(path, file)
+                documents_destination_path = os.path.join(documents_downloads_path, file)
                 os.replace(origin_path, documents_destination_path)
 
     elif matched_filetypes == exec_match:
@@ -109,8 +110,8 @@ def moveFile(matched_filetypes):
 
         elif isExist:
             for file in matched_filetypes:
-                origin_path = path + "/" + file
-                exec_destination_path = exec_downloads_path + "/" + file
+                origin_path = os.path.join(path, file)
+                exec_destination_path = os.path.join(exec_downloads_path, file)
                 os.replace(origin_path, exec_destination_path)
 
     elif matched_filetypes == compressed_match:
@@ -121,8 +122,8 @@ def moveFile(matched_filetypes):
 
         elif isExist:
             for file in matched_filetypes:
-                origin_path = path + "/" + file
-                compressed_destination_path = compressed_downloads_path + "/" + file
+                origin_path = os.path.join(path, file)
+                compressed_destination_path = os.path.join(compressed_downloads_path, file)
                 os.replace(origin_path, compressed_destination_path)
 
     elif matched_filetypes == image_match:
@@ -133,8 +134,8 @@ def moveFile(matched_filetypes):
 
         elif isExist:
             for file in matched_filetypes:
-                origin_path = path + "/" + file
-                image_destination_path = image_downloads_path + "/" + file
+                origin_path = os.path.join(path, file)
+                image_destination_path = os.path.join(image_downloads_path, file)
                 os.replace(origin_path, image_destination_path)
 
     elif matched_filetypes == app_image_match:
@@ -145,8 +146,8 @@ def moveFile(matched_filetypes):
 
         elif isExist:
             for file in matched_filetypes:
-                origin_path = path + "/" + file
-                app_image_destination_path = app_image_downloads_path + "/" + file
+                origin_path = os.path.join(path, file)
+                app_image_destination_path = os.path.join(app_image_downloads_path, file)
                 os.replace(origin_path, app_image_destination_path)
 
     '''elif matched_filetypes == regex_missing:
@@ -184,7 +185,7 @@ while loop:
      thus returning one value'''
 
     # Creating list to match photo filetypes
-    image_filetypes = ['png', 'jpeg', 'exif', 'tiff', 'gif', 'png', 'ppm', 'pgm', 'pbm', 'pnm', 'hdr', 'bpg', 'cgm', 'svg', 'raw']
+    image_filetypes = ['png', 'jpeg', 'exif', 'tiff', 'gif', 'ppm', 'pgm', 'pbm', 'pnm', 'hdr', 'bpg', 'cgm', 'svg', 'raw']
 
     # Creating list to match video filetypes
     video_filetypes = ['mp4', 'm4a', 'm4v', 'f4v', 'f4a', 'm4b', 'm4r', 'f4b', 'mov', '3pg',
